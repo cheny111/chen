@@ -10,7 +10,8 @@ export default class Home extends React.Component{
 				share:{topics:[],page:1},
 				job:{topics:[],page:1},
 				ask:{topics:[],page:1}
-			}
+			},
+			tab:'all'
 		}
 	}
 	render(){
