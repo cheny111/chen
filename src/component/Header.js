@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { Button,Modal,Input,message,Menu, Dropdown,Avatar } from 'antd'
-import {url} from '../config.js'
+import {url} from '../config.js';
 
 
 export default class Header extends React.Component{

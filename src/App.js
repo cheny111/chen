@@ -15,6 +15,7 @@ export default class App extends React.Component{
 					<Header>
 						<Route path='/' exact component={Home}/>
 					</Header>
+					<Home/>
 				</div>
 			</HashRouter>
 		)
