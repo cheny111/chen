@@ -65,6 +65,8 @@
 }
 .comments{
 	display: flex;
+	font-size: 18px;
+	border-bottom: 2px solid #eee;
 }
 .comments>span{
 	flex-shrink: 0;
@@ -76,4 +78,8 @@
 .comments-header{
 	display: flex;
 	justify-content: space-between;
+	padding-bottom: 10px;
+}
+.comments-header span .icon{
+	padding: 0 10px;
 }

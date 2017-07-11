@@ -1,9 +1,9 @@
 import React from 'react';
 import axios from 'axios'
 import {url} from '../config.js'
-import { Tabs,message } from 'antd';
-const TabPane = Tabs.TabPane;
+import { Tabs,message,Button,BackTop} from 'antd';
 import Topics from './Topics.js' 
+const TabPane = Tabs.TabPane;
 
 export default class Home extends React.Component{
 	constructor(){
@@ -15,14 +15,18 @@ export default class Home extends React.Component{
 				share:{topics:[], page:1},
 				ask:{topics:[], page:1},
 				job:{topics:[], page:1}
-			}
+			},
+			tab:'all'
 		}
 	}
 	getData(tab,page){
-		axios.get(`${url}/topics?limit=15&tab=${tab==='all'?'':tab}&page=${page}`)
+		console.log(page)
+		axios.get(`${url}/topics?limit=25&tab=${tab==='all'?'':tab}&page=${page}`)
 		.then(res=>{
 			let newData=this.state.data
-			newData[tab].topics=[...newData[tab].topics,...res.data.data]//保存之前刷新的数据，再向里面添加
+			//newData[tab].topics=[...newData[tab].topics,...res.data.data]保存之前刷新的数据，再向里面添加
+			newData[tab].topics=res.data.data
+			newData[tab].page=page;
 			this.setState({
 				data:newData
 			})
@@ -34,6 +38,7 @@ export default class Home extends React.Component{
 	}
 	handleChange(key){
 		// console.log(key)
+		this.setState({tab:key})
 		if(this.state.data[key].topics.length===0){
 			this.getData(key,1)
 		}else{
@@ -41,9 +46,14 @@ export default class Home extends React.Component{
 		}
 
 	}
+	loadMore(tab){
+		// console.log(tab)
+		this.getData(tab,this.state.data[tab].page+1)
+
+	}
 	render(){
 		console.log(this.state.data)
-		let {data}=this.state
+		let {data,tab}=this.state
 		
 		return(
 			<div>
@@ -63,8 +73,9 @@ export default class Home extends React.Component{
 			    <TabPane tab="招聘" key="job">
 			    	<Topics data={data.job.topics}/>
 			    </TabPane>
-
-		  </Tabs>
+		  	</Tabs>
+		  	<Button type='primary' style={{width:'100%'}} onClick={this.loadMore.bind(this,tab)}>MORE</Button>
+		  	<BackTop/>
 			</div>
 		)
 	}

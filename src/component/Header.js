@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
-import { Button,Modal,Input,message,Menu, Dropdown,Avatar } from 'antd'
+import { Button,Modal,Input,message,Menu, Dropdown,Avatar,BackTop } from 'antd'
+import {Link} from 'react-router-dom'
 import {url} from '../config.js';
 
 
@@ -65,7 +66,7 @@ export default class Header extends React.Component{
 		);
 		return(
 			<div className="header">
-				<h1>cnode中文社区</h1>
+				<h1><Link to='/'>cnode中文社区</Link></h1>
 				{
 					isLogin? 
 					<div>
