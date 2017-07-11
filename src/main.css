@@ -74,11 +74,13 @@
 }
 .comments-right{
 	flex-grow: 1;
+	
 }
 .comments-header{
 	display: flex;
 	justify-content: space-between;
 	padding-bottom: 10px;
+
 }
 .comments-header span .icon{
 	padding: 0 10px;

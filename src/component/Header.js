@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { Button,Modal,Input,message,Menu, Dropdown,Avatar,BackTop } from 'antd'
+import { Button,Modal,Input,message,Menu, Dropdown,Avatar,BackTop,Badge } from 'antd'
 import {Link} from 'react-router-dom'
 import {url} from '../config.js';
 
@@ -13,7 +13,8 @@ export default class Header extends React.Component{
 			visible:false,
 			confirmLoading:false,
 			input:'d1b106e5-99ed-40d2-94ef-72f6a78f433f',
-			user:null
+			user:null,
+			messageCount:0
 			
 		}
 	}
@@ -32,6 +33,7 @@ export default class Header extends React.Component{
 				user:res.data
 			})
 			sessionStorage.accesstoken=accesstoken
+			this.getMessage(accesstoken)
 		})
 		.catch(err=>{
 			message.error('登录失败，请重试')
@@ -41,6 +43,10 @@ export default class Header extends React.Component{
 			})
 		})
 	}
+	getMessage(accesstoken){
+		axios.get(`${url}/message/count?accesstoken=${accesstoken}`)
+		.then(res=>console.log(res))
+	}
 	handleLogout(){
 		this.setState({
 			user:null,
@@ -49,7 +55,7 @@ export default class Header extends React.Component{
 		sessionStorage.removeItem('accesstoken')
 	}
 	render(){
-		let {isLogin,visible,input,confirmLoading,user}=this.state
+		let {isLogin,visible,input,confirmLoading,user,messageCount}=this.state
 		console.log(user)
 		const menu = !isLogin? <p>123</p> :(
 		  <Menu>
@@ -58,6 +64,11 @@ export default class Header extends React.Component{
 		    </Menu.Item>
 		    <Menu.Item>
 		    	<a href="#">个人中心</a>
+		    </Menu.Item>
+		    <Menu.Item>
+		    	<Badge count={messageCount} showZero>
+		    		<Link to="/message">消息中心</Link>
+		   		</Badge>
 		    </Menu.Item>
 		    <Menu.Item>
 		      <Button type="danger" onClick={this.handleLogout.bind(this)}>退出</Button>
@@ -71,8 +82,9 @@ export default class Header extends React.Component{
 					isLogin? 
 					<div>
 						<Dropdown overlay={menu}>
-					    
+					    <Badge count={messageCount} showZero>
 					     <Avatar src={user.avatar_url} />
+					    </Badge>
 					  </Dropdown>
 					</div>
 					:
