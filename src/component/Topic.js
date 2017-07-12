@@ -12,7 +12,8 @@ export default class Topic extends React.Component{
 			reply:'',
 			replyPerson:'',
 			visible:false,
-			replyInfo:null
+			replyInfo:null,
+			collect:'收藏'
 		}
 	}
 	getData(){
@@ -63,6 +64,19 @@ export default class Topic extends React.Component{
 			.then( res => this.getData() )
 			.catch( err => message.error('点赞失败'))
 	}
+	handleCollect(){
+		var topic_id = this.props.match.params.id;
+		if (sessionStorage.accesstoken) {
+			var accesstoken = sessionStorage.accesstoken
+		}else{
+			alert('请先登录')
+			return
+		}
+		axios.post(`${url}/topic_collect/collect`,{accesstoken,topic_id })
+		.then(res=>(this.setState({collect:'取消收藏'})))
+		.catch(err=>message.error('收藏失败'))
+
+	}
 	showReplyPerson(replyPerson){
 		// console.log(replyPerson)
 		this.setState({visible:true,replyInfo:replyPerson,replyPerson:`@${replyPerson.author.loginname} `})
@@ -70,7 +84,7 @@ export default class Topic extends React.Component{
 	
 	render(){
 		// console.log(this.props)
-		let {data,reply,visible,replyPerson,replyInfo}=this.state
+		let {data,reply,visible,replyPerson,replyInfo,collect}=this.state
 		console.log(data)
 		return(
 			<div style={{padding:'10px'}}>
@@ -79,6 +93,8 @@ export default class Topic extends React.Component{
 						data? (
 							<div>
 								<h1 style={{textAlign:'center'}}>{data.title}</h1>
+								<Button type='primary' style={{float:'right',backgroud:'lightgreen'}} onClick={this.handleCollect.bind(this)}>{collect}</Button>
+								
 								<div className='topic-desc'>
 									<Avatar src={data.author.avatar_url}/>
 									<span>回复量：{data.reply_count}</span>&nbsp;&nbsp;

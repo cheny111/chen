@@ -52,7 +52,7 @@ export default class Header extends React.Component{
 			user:null,
 			isLogin:false
 		})
-		sessionStorage.removeItem('accesstoken')
+		sessionStorage.clear();
 	}
 	render(){
 		let {isLogin,visible,input,confirmLoading,user,messageCount}=this.state
