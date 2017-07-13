@@ -85,3 +85,11 @@
 .comments-header span .icon{
 	padding: 0 10px;
 }
+.collect{
+	display: flex;
+	justify-content: space-between;
+	font-size: 18px;
+	border-bottom: 1px solid #D0D0D0;
+	line-height: 36px;
+	padding:5px 10px;
+}

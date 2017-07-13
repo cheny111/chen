@@ -63,12 +63,15 @@ export default class Header extends React.Component{
 		      <h3>{user.loginname}</h3>
 		    </Menu.Item>
 		    <Menu.Item>
-		    	<a href="#">个人中心</a>
+		    	<Link to={{pathname:`/user/${user.loginname}`,state:user.loginname}}>个人中心</Link>
 		    </Menu.Item>
 		    <Menu.Item>
 		    	<Badge count={messageCount} showZero>
 		    		<Link to="/message">消息中心</Link>
 		   		</Badge>
+		    </Menu.Item>
+		    <Menu.Item>
+		    	<Link to={{pathname:`/collect/${user.loginname}`,state:user.loginname}}>我的收藏</Link>
 		    </Menu.Item>
 		    <Menu.Item>
 		      <Button type="danger" onClick={this.handleLogout.bind(this)}>退出</Button>
