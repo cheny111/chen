@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter,Route} from 'react-router-dom';
+import {HashRouter,Route} from 'react-router-dom';
 
 import Header from './component/Header.js';
 import Footer from './component/Footer.js';
@@ -26,7 +26,7 @@ export default class App extends React.Component{
 	}
 	render(){
 		return(
-			<BrowserRouter>
+			<HashRouter>
 				<div>
 					<Header/>
 						<Route path='/' exact component={Home}/>
@@ -36,7 +36,7 @@ export default class App extends React.Component{
 						<Route path='/user/:loginname' component={UserInfo}/>
 						<Route path='/newtopic' component={NewTopic}/>
 				</div>
-			</BrowserRouter>
+			</HashRouter>
 		)
 	}
 }
