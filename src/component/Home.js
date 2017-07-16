@@ -75,7 +75,7 @@ export default class Home extends React.Component{
 			    </TabPane>
 		  	</Tabs>
 		  	<Button type='primary' style={{width:'100%'}} onClick={this.loadMore.bind(this,tab)}>MORE</Button>
-				<Pagination style={{width:'100%'}} defaultCurrent={6} total={500}/>
+				
 		  	<BackTop/>
 			</div>
 		)

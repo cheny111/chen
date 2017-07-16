@@ -54,7 +54,7 @@ export default class Topic extends React.Component{
 				this.setState({visible:false})
 			}
 		})
-		.catch(message.error('评论失败'))
+		/*.catch(message.error('评论失败'))*/
 	}
 	handleLike(reply_id){
 		if (sessionStorage.accesstoken) {

@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios'
 import {url} from '../config.js';
-import {message,Button} from 'antd';
+import {message,Button,Avatar} from 'antd';
 import moment from 'moment';
 import {Link} from 'react-router-dom';
 
@@ -57,7 +57,7 @@ export default class Collect extends React.Component{
 						data.map(item=>(
 							<p key={item.id} className='collect'>
 
-								<Link to=''><strong>{item.author.loginname}</strong></Link>
+								<Link to=''><strong>{item.author.loginname}<Avatar src={item.author.avatar_url}/></strong></Link>
 								<Link to={`/topic/${item.id}`}>{item.title}</Link>
 								{/*<span>{moment(item.create_at).fromNow()}</span>*/}
 								<Button onClick={this.cancelCollect.bind(this,item.id)}>取消收藏</Button>
