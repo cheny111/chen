@@ -31,23 +31,29 @@ export default class UserInfo extends React.Component{
 		console.log(data)
 		return(
 			<div>
-				<h1>个人信息</h1>
+				<h1>个人信息:</h1>
 				{
 					data?
 					(
 						<div>
-							<Avatar src={data.avatar_url}/>
-							<div>用户名：{data.loginname}</div>
-							<div>我的回复：
+							<div style={{borderBottom:'2px solid #eee'}}>
+								<Avatar src={data.avatar_url}/>
+								<h2>用户名：{data.loginname}</h2>
+								<h2>积分：{data.score}</h2>
+							</div>
+							
+
+							<div style={{fontSize:'24px',borderBottom:'2px solid #eee'}}>参与的话题：
 								{	
 									data.recent_replies.map(item=>(
 										<div key={item.id}>
+											<span>{item.author.loginname}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 											<Link to={`/topic/${item.id}`}>{item.title}</Link>
 										</div>
 									))
 								}
 							</div>
-							<div>我的话题：
+							<div style={{fontSize:'24px'}}>创建的话题：
 								{
 									data.recent_topics.map(item=>(
 										<p key={item.id}>{item.title}</p>

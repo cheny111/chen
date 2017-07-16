@@ -13,7 +13,9 @@ export default class Topic extends React.Component{
 			replyPerson:'',
 			visible:false,
 			replyInfo:null,
-			collect:'收藏'
+			collect:false
+			
+
 		}
 	}
 	getData(){
@@ -24,10 +26,7 @@ export default class Topic extends React.Component{
 
 	}
 	componentWillMount(){
-		
 		this.getData()
-		
-
 	}
 
 	handleReply(type){
@@ -93,17 +92,19 @@ export default class Topic extends React.Component{
 
 	}*/
 	handleCollect(){
+		
 		if (sessionStorage.accesstoken) {
 			var accesstoken = sessionStorage.accesstoken
 		}else{
 			alert('请先登录')
 			return
 		}
-		// let loginname = this.props.location.state
-		// axios.get(`${url}/topic_collect/${loginname}`)
-		// .then(res=>console.log(res))
-		console.log(this.props)
-
+		var topic_id = this.props.match.params.id;
+		axios.post(`${url}/topic_collect/collect`,{accesstoken,topic_id })
+			.then(res=>(this.setState({collect:true})))
+			.catch(err=>message.error('收藏失败'))
+			let wait=this.state.wait
+			console.log(wait)
 	}
 	showReplyPerson(replyPerson){
 		// console.log(replyPerson)
@@ -113,6 +114,7 @@ export default class Topic extends React.Component{
 	render(){
 		// console.log(this.props)
 		let {data,reply,visible,replyPerson,replyInfo,collect}=this.state
+		
 		console.log(data)
 		return(
 			<div style={{padding:'10px'}}>
@@ -121,8 +123,9 @@ export default class Topic extends React.Component{
 						data? (
 							<div>
 								<h1 style={{textAlign:'center'}}>{data.title}</h1>
+
 								<Button type='primary' style={{float:'right',backgroud:'lightgreen'}} onClick={this.handleCollect.bind(this)}>
-									{this.state.collect}
+									{collect? '已收藏' :'收藏'}
 								</Button>
 								 
 								

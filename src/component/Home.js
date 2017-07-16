@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios'
 import {url} from '../config.js'
-import { Tabs,message,Button,BackTop} from 'antd';
+import { Tabs,message,Button,BackTop, Pagination} from 'antd';
 import Topics from './Topics.js' 
 const TabPane = Tabs.TabPane;
 
@@ -21,7 +21,7 @@ export default class Home extends React.Component{
 	}
 	getData(tab,page){
 		console.log(page)
-		axios.get(`${url}/topics?limit=25&tab=${tab==='all'?'':tab}&page=${page}`)
+		axios.get(`${url}/topics?limit=5&tab=${tab==='all'?'':tab}&page=${page}`)
 		.then(res=>{
 			let newData=this.state.data
 			//newData[tab].topics=[...newData[tab].topics,...res.data.data]保存之前刷新的数据，再向里面添加
@@ -75,6 +75,7 @@ export default class Home extends React.Component{
 			    </TabPane>
 		  	</Tabs>
 		  	<Button type='primary' style={{width:'100%'}} onClick={this.loadMore.bind(this,tab)}>MORE</Button>
+				<Pagination style={{width:'100%'}} defaultCurrent={6} total={500}/>
 		  	<BackTop/>
 			</div>
 		)

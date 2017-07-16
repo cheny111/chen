@@ -71,6 +71,9 @@ export default class Header extends React.Component{
 		   		</Badge>
 		    </Menu.Item>
 		    <Menu.Item>
+		    	<Link to="/newtopic">话题中心</Link>
+		    </Menu.Item>
+		    <Menu.Item>
 		    	<Link to={{pathname:`/collect/${user.loginname}`,state:user.loginname}}>我的收藏</Link>
 		    </Menu.Item>
 		    <Menu.Item>
